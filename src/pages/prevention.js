@@ -3,65 +3,60 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 import { Row, Col } from "react-bootstrap"
+import { useStaticQuery, graphql } from "gatsby"
 
-import WashHands from "../assets/washHands.svg"
-import SocialDistance from "../assets/socialDistance.svg"
-import TouchFace from "../assets/TouchFace.svg"
+const PreventionPage = () => {
+  const data = useStaticQuery(graphql`
+    query PreventionQuery {
+      prevention: allAirtable(filter: { table: { eq: "Prevention" } }) {
+        nodes {
+          data {
+            subTitle
+            title
+            desc
+            sectionTitle
+            sectionDesc
+            sectionImage {
+              url
+            }
+          }
+        }
+      }
+    }
+  `)
 
-const PreventionPage = () => (
-  <Layout>
-    <SEO title="Prevention" />
-    <Row className="text-center">
-      <Col md={8} style={{ margin: "auto" }}>
-        <span className="subTitle">COVID-19</span>
-        <h1 className="title">Prevention of Coronavirus</h1>
-        <p className="desc">
-          There is currently no vaccine to prevent Coronavirus (COVID-19. The
-          best way to prevent illness is to avoid being exposed to this virus.
-        </p>
-      </Col>
-    </Row>
+  return (
+    <Layout>
+      <SEO title="Prevention" />
+      <Row className="text-center">
+        <Col md={8} style={{ margin: "auto" }}>
+          <span className="subTitle">
+            {data.prevention.nodes[2].data.subTitle}
+          </span>
+          <h1 className="title">{data.prevention.nodes[2].data.title}</h1>
+          <p className="desc">{data.prevention.nodes[2].data.desc}</p>
+        </Col>
+      </Row>
 
-    <Row className="d-flex align-items-center justify-content-center mt-5">
-      <Col md={3} className="text-md-right text-xs-center">
-        <WashHands width={200} height={200} />
-      </Col>
-      <Col md={5}>
-        <h2>Wash your hands frequently</h2>
-        <p>
-          Regularly and thoroughly clean your hands with an alcohol-based hand
-          rub or wash them with soap and water for at least 20 seconds.
-        </p>
-      </Col>
-    </Row>
-
-    <Row className="d-flex align-items-center justify-content-center mt-5">
-      <Col md={3} className="text-md-right">
-        <SocialDistance width={200} height={300} />
-      </Col>
-      <Col md={5}>
-        <h2>Maintain social distancing</h2>
-        <p>
-          Maintain at least ~1.8 meters (6 feet) distance between yourself &
-          anyone who is coughing or sneezing.
-        </p>
-      </Col>
-    </Row>
-
-    <Row className="d-flex align-items-center justify-content-center mt-5">
-      <Col md={3} className="text-md-right text-xs-center">
-        <TouchFace width={200} height={300} />
-      </Col>
-      <Col md={5}>
-        <h2>Avoid touching face</h2>
-        <p>
-          Hands touch many surfaces and can pick up viruses. So, hands can
-          transfer the virus to your eyes, nose, or mouth and can make you
-          sick..
-        </p>
-      </Col>
-    </Row>
-  </Layout>
-)
+      {data.prevention.nodes.map((item, i) => (
+        <Row className="d-flex align-items-center justify-content-center mt-5 mb-5">
+          <Col md={3} className="text-md-right text-center text-xs-center">
+            <img
+              src={item.data.sectionImage[0].url}
+              alt="Image"
+              width="150"
+              height="150"
+              className="img-fluid m-3"
+            />
+          </Col>
+          <Col md={5} className="text-md-left text-center">
+            <h2>{item.data.sectionTitle}</h2>
+            <p>{item.data.sectionDesc}</p>
+          </Col>
+        </Row>
+      ))}
+    </Layout>
+  )
+}
 
 export default PreventionPage

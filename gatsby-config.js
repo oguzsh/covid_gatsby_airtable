@@ -35,5 +35,29 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: `gatsby-source-airtable`,
+      options: {
+        apiKey: "keylY2YZZW2IDpKTs",
+        tables: [
+          {
+            baseId: `appRWClLfkBlb9UUZ`,
+            tableName: `Overview`,
+          },
+          {
+            baseId: `appRWClLfkBlb9UUZ`,
+            tableName: `Contagion`,
+          },
+          {
+            baseId: `appRWClLfkBlb9UUZ`,
+            tableName: `Symptons`,
+          },
+          {
+            baseId: `appRWClLfkBlb9UUZ`,
+            tableName: `Prevention`,
+          },
+        ],
+      },
+    },
   ],
 }
