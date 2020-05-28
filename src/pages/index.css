@@ -1,0 +1,36 @@
+.subTitle {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.title {
+    color: var(--secondary);
+    font-weight: 700;
+}
+
+.desc {
+    color: var(--black);
+    line-height: 1.5;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+.netflixVector {
+    width: 450px;
+    height: 300px;
+}
+
+.btn {
+    width: 150px;
+    padding: 10px 20px 10px 20px;
+    border-radius: 30px;
+    background-color: var(--primary);
+    border: none;
+    box-shadow: none;
+    transition: 0.3s all ease-in-out;
+    font-weight: 500;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
